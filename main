@@ -1,0 +1,48 @@
+print ("""
+
+Criador de senhas
+_________________
+Digite:
+1. Para criar senha
+2. Para ver senhas
+3. Para sair""")
+
+from crucis import criar_senha_aleatoria, criar_senha_personalizada, senhas_criadas
+
+while True:
+    opcao = input("Opção desejada: ")
+
+    if opcao == "1":
+        print("""Opções:
+        1. Senha aleatória
+        2. Senha criada""")
+        sub_opcao = input("Escolha uma opção: ")
+
+        if sub_opcao == "1":
+            senha_formatada = criar_senha_aleatoria()
+            print(f"Sua senha é: {senha_formatada}")
+            senhas_criadas.append(senha_formatada)
+
+        elif sub_opcao == "2":
+            senha_formatada = criar_senha_personalizada()
+            if senha_formatada:
+                print(f"Sua senha é: {senha_formatada}")
+                senhas_criadas.append(senha_formatada)
+
+            else:
+                print("Opção inválida. Retornando ao menu principal.")
+
+    elif opcao == "2":
+        if senhas_criadas:
+            print("Senhas criadas:")
+            for senha in senhas_criadas:
+                print(senha)
+        else:
+            print("Nenhuma senha foi criada ainda.")
+
+    elif opcao == "3":
+        print("Saindo...")
+        break
+
+    else:
+            print("Opção inválida. Tente novamente.")
