@@ -1,0 +1,87 @@
+print ("""
+
+Criador de senhas
+_________________
+Digite:
+1. Para criar senha
+2. Para ver senhas
+3. Para sair""")
+
+import string as st
+import numpy as np
+
+letras = st.ascii_letters
+numeros = st.digits
+especial = st.punctuation
+algarismos = letras + numeros + especial
+senhas_criadas = []
+
+def criar_senha_aleatoria():
+        senha = np.random.choice(list(algarismos), 10)
+        senha_formatada = ''.join(senha)
+        return senha_formatada
+
+def criar_senha_personalizada():
+        print("Escolha os componentes da senha:")
+        incluir_letras = input("Incluir letras? (s/n): ").lower() == 's'
+        incluir_numeros = input("Incluir números? (s/n): ").lower() == 's'
+        incluir_especial = input("Incluir caracteres especiais? (s/n): ").lower() == 's'
+
+        caracteres = ''
+        if incluir_letras:
+            caracteres += letras
+        if incluir_numeros:
+            caracteres += numeros
+        if incluir_especial:
+            caracteres += especial
+
+        if not caracteres:
+            print("Nenhum componente selecionado. A senha deve incluir pelo menos um tipo de caractere.")
+            return None
+
+        tamanho_senha = int(input("Digite o tamanho da senha (máximo 10): "))
+        if tamanho_senha > 10 or tamanho_senha < 1:
+            print("Tamanho inválido. Deve ser entre 1 e 10.")
+            return None
+
+        senha = np.random.choice(list(caracteres), tamanho_senha)
+        senha_formatada = ''.join(senha)
+        return senha_formatada
+
+while True:
+        opcao = input("Opção desejada: ")
+
+        if opcao == "1":
+            print("""Opções:
+            1. Senha aleatória
+            2. Senha criada""")
+            sub_opcao = input("Escolha uma opção: ")
+
+            if sub_opcao == "1":
+                senha_formatada = criar_senha_aleatoria()
+                print(f"Sua senha é: {senha_formatada}")
+                senhas_criadas.append(senha_formatada)
+
+            elif sub_opcao == "2":
+                senha_formatada = criar_senha_personalizada()
+                if senha_formatada:
+                    print(f"Sua senha é: {senha_formatada}")
+                    senhas_criadas.append(senha_formatada)
+
+            else:
+                print("Opção inválida. Retornando ao menu principal.")
+
+        elif opcao == "2":
+            if senhas_criadas:
+                print("Senhas criadas:")
+                for senha in senhas_criadas:
+                    print(senha)
+            else:
+                print("Nenhuma senha foi criada ainda.")
+
+        elif opcao == "3":
+            print("Saindo...")
+            break
+
+        else:
+            print("Opção inválida. Tente novamente.")
