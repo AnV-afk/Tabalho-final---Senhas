@@ -1,0 +1,41 @@
+import string as st
+import numpy as np
+
+letras = st.ascii_letters
+numeros = st.digits
+especial = st.punctuation
+algarismos = letras + numeros + especial
+senhas_criadas = []
+
+def criar_senha_aleatoria():
+    senha = np.random.choice(list(algarismos), 10)
+    senha_formatada = ''.join(senha)
+    return senha_formatada
+
+def criar_senha_personalizada():
+    print("Escolha os componentes da senha:")
+    incluir_letras = input("Incluir letras? (s/n): ").lower() == 's'
+    incluir_numeros = input("Incluir números? (s/n): ").lower() == 's'
+    incluir_especial = input("Incluir caracteres especiais? (s/n): ").lower() == 's'
+
+    caracteres = ''
+
+    if incluir_letras:
+        caracteres += letras
+    if incluir_numeros:
+        caracteres += numeros
+    if incluir_especial:
+        caracteres += especial
+
+    if not caracteres:
+        print("Nenhum componente selecionado. A senha deve incluir pelo menos um tipo de caractere.")
+        return None
+
+    tamanho_senha = int(input("Digite o tamanho da senha (máximo 10): "))
+    if tamanho_senha > 10 or tamanho_senha < 1:
+        print("Tamanho inválido. Deve ser entre 1 e 10.")
+        return None
+
+    senha = np.random.choice(list(caracteres), tamanho_senha)
+    senha_formatada = ''.join(senha)
+    return senha_formatada
